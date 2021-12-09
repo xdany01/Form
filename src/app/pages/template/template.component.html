@@ -7,7 +7,6 @@
     <input type="text"
            class="form-control"
            [class.is-invalid]="nombre.invalid && nombre.touched"
-           [class.is-valid]="nombre.valid && nombre.touched"
            id="inputNombre"
            name="nombre"
            [ngModel]="usuario.nombre"
@@ -21,7 +20,6 @@
     <input type="text"
            class="form-control"
            [class.is-invalid]="apellido.invalid && apellido.touched"
-           [class.is-valid]="apellido.valid && apellido.touched"
            id="inputApellido"
            name="apellido"
            [ngModel]="usuario.apellido"
@@ -31,11 +29,26 @@
     <div *ngIf="apellido.invalid && apellido.touched" class="invalid-feedback">
       El campo apellido no es valido.
     </div>
+    <label for="selectPais" class="form-label mt-3">Pais</label>
+    <select id="selectPais"
+            name="pais"
+            class="form-select"
+            [class.is-invalid]="pais.invalid && pais.touched"
+            [ngModel]="usuario.pais"
+            #pais="ngModel"
+            required>
+      <option></option>
+      <option *ngFor="let pais of paises" [value]="pais.codigo">
+        {{pais.nombre}}
+      </option>
+    </select>
+    <div *ngIf="pais.invalid && pais.touched" class="invalid-feedback">
+      El campo pais no es valido.
+    </div>
     <label for="inputEmail" class="form-label mt-3">Email</label>
     <input type="email"
            class="form-control"
            [class.is-invalid]="email.invalid && email.touched"
-           [class.is-valid]="email.valid && email.touched"
            id="inputEmail"
            name="email"
            [ngModel]="usuario.email"
@@ -44,6 +57,32 @@
            required>
     <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
       El campo email no es valido.
+    </div>
+    <label class="form-label mt-3 d-block">Genero</label>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input"
+             [class.is-invalid]="genero.invalid && genero.touched"
+             [ngModel]="usuario.genero"
+             #genero="ngModel"
+             type="radio"
+             name="genero"
+             id="masculino"
+             value="M">
+      <label class="form-check-label" for="masculino">Masculino</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input"
+             [class.is-invalid]="genero.invalid && genero.touched"
+             [ngModel]="usuario.genero"
+             #genero="ngModel"
+             type="radio"
+             name="genero"
+             id="femenino"
+             value="F">
+      <label class="form-check-label" for="femenino">Femenino</label>
+    </div>
+    <div *ngIf="genero.invalid && genero.touched" class="invalid-feedback">
+      El campo genero no es valido.
     </div>
     <div class="row">
       <div class="col-12">
