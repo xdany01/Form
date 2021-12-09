@@ -1,0 +1,10 @@
+<div class="container mt-3">
+  <ul class="nav nav-tabs justify-content-end">
+    <li class="nav-item me-auto fs-4 fade-in">
+      {{titulo}}
+    </li>
+    <li class="nav-item" *ngFor="let m of menu">
+      <a class="nav-link" aria-current="page" [routerLink]="m.ruta" routerLinkActive="active" (click)="cambiarTitulo(m.ruta)">{{m.menu}}</a>
+    </li>
+  </ul>
+</div>

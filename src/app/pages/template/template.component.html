@@ -1,0 +1,54 @@
+<form class="row justify-content-center mt-5 fade-in-left"
+      autocomplete="off"
+      #form="ngForm"
+      (ngSubmit)="guardar(form)">
+  <div class="col-10 col-md-8 col-lg-6 col-xl-5">
+    <label for="inputNombre" class="form-label mt-3">Nombre</label>
+    <input type="text"
+           class="form-control"
+           [class.is-invalid]="nombre.invalid && nombre.touched"
+           [class.is-valid]="nombre.valid && nombre.touched"
+           id="inputNombre"
+           name="nombre"
+           [ngModel]="usuario.nombre"
+           #nombre="ngModel"
+           minlength="5"
+           required>
+    <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">
+      El campo nombre no es valido.
+    </div>
+    <label for="inputApellido" class="form-label mt-3">Apellido</label>
+    <input type="text"
+           class="form-control"
+           [class.is-invalid]="apellido.invalid && apellido.touched"
+           [class.is-valid]="apellido.valid && apellido.touched"
+           id="inputApellido"
+           name="apellido"
+           [ngModel]="usuario.apellido"
+           #apellido="ngModel"
+           minlength="5"
+           required>
+    <div *ngIf="apellido.invalid && apellido.touched" class="invalid-feedback">
+      El campo apellido no es valido.
+    </div>
+    <label for="inputEmail" class="form-label mt-3">Email</label>
+    <input type="email"
+           class="form-control"
+           [class.is-invalid]="email.invalid && email.touched"
+           [class.is-valid]="email.valid && email.touched"
+           id="inputEmail"
+           name="email"
+           [ngModel]="usuario.email"
+           #email="ngModel"
+           pattern="^(([^<>()\[\]\\.,:\s@]+(\.[^<>()\[\]\\.,:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+           required>
+    <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+      El campo email no es valido.
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary bg-primary bg-gradient text-white mt-4 w-100">Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>
