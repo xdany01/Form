@@ -1,11 +1,136 @@
-<form class="row justify-content-center mt-5 fade-in-right" autocomplete="off">
+<form class="row justify-content-center mt-5 fade-in-right"
+      autocomplete="off"
+      [formGroup]="form" (ngSubmit)="guardar()">
   <div class="col-10 col-md-8 col-lg-6 col-xl-5">
     <label for="inputNombre" class="form-label mt-3">Nombre</label>
-    <input type="text" class="form-control" id="inputNombre">
+    <input type="text"
+           class="form-control"
+           id="inputNombre"
+           formControlName="nombre"
+           [class.is-invalid]="nombreNoValido">
+    <div *ngIf="validationMinLength('nombre')"
+         class="invalid-feedback">
+      Mínimo 3 caracteres.
+    </div>
+    <div *ngIf="validationRequired('nombre')"
+         class="invalid-feedback">
+      El campo nombre es requerido.
+    </div>
     <label for="inputApellido" class="form-label mt-3">Apellido</label>
-    <input type="text" class="form-control" id="inputApellido">
+    <input type="text"
+           class="form-control"
+           id="inputApellido"
+           formControlName="apellido"
+           [class.is-invalid]="apellidoNoValido">
+    <div *ngIf="validationNoNunez('apellido')"
+         class="invalid-feedback">
+      No se admiten Nuñez.
+    </div>
+    <div *ngIf="validationMinLength('apellido')" class="invalid-feedback">
+      Mínimo 3 caracteres.
+    </div>
+    <div *ngIf="validationRequired('apellido')" class="invalid-feedback">
+      El campo apellido es requerido.
+    </div>
     <label for="inputEmail" class="form-label mt-3">Email</label>
-    <input type="email" class="form-control" id="inputEmail">
+    <input type="email"
+           class="form-control"
+           id="inputEmail"
+           formControlName="email"
+           [class.is-invalid]="emailNoValido">
+    <div *ngIf="validationPattern('email')" class="invalid-feedback">
+      El formato no es válido.
+    </div>
+    <div *ngIf="validationRequired('email')" class="invalid-feedback">
+      El campo email es requerido.
+    </div>
+    <label for="inputUsuario" class="form-label mt-3">Usuario</label>
+    <input type="email"
+           class="form-control"
+           id="inputUsuario"
+           formControlName="usuario"
+           [class.is-invalid]="usuarioNoValido">
+    <div *ngIf="validationRequired('usuario')" class="invalid-feedback">
+      El campo usuario es requerido.
+    </div>
+    <div *ngIf="validationUsuario()" class="invalid-feedback">
+      Ya existe un usuario con ese nombre.
+    </div>
+    <label for="inputPassword1" class="form-label mt-3">Password</label>
+    <input type="text"
+           class="form-control"
+           id="inputPassword1"
+           formControlName="password1"
+           [class.is-invalid]="passwordNoValido(1)">
+    <div *ngIf="passwordNoValido(1)" class="invalid-feedback">
+      El formato del password no es válido.
+    </div>
+    <label for="inputPassword2" class="form-label mt-3">Repite password</label>
+    <input type="text"
+           class="form-control"
+           id="inputPassword2"
+           formControlName="password2"
+           [class.is-invalid]="pass2Distinto">
+    <div *ngIf="pass2Distinto" class="invalid-feedback">
+      Los password son distintos.
+    </div>
+    <label class="form-label mt-3">Dirección</label>
+    <div class="row" formGroupName="direccion">
+      <div class="col-12 col-md-6">
+        <input type="text"
+               class="form-control"
+               placeholder="Distrito"
+               formControlName="distrito"
+               [class.is-invalid]="distritoNoValido">
+        <div *ngIf="validationRequired('direccion.distrito')"
+             class="invalid-feedback">
+          El campo distrito es requerido.
+        </div>
+        <div
+          *ngIf="validationMinLength('direccion.distrito')"
+          class="invalid-feedback">
+          Mínimo 3 caracteres.
+        </div>
+      </div>
+      <div class="col-12 col-md-6 mt-5 mt-md-0">
+        <input type="text"
+               class="form-control"
+               placeholder="Ciudad"
+               formControlName="ciudad"
+               [class.is-invalid]="ciudadNoValido">
+        <div *ngIf="validationRequired('direccion.ciudad')"
+             class="invalid-feedback">
+          El campo ciudad es requerido.
+        </div>
+        <div
+          *ngIf="validationMinLength('direccion.ciudad')"
+          class="invalid-feedback">
+          Mínimo 3 caracteres.
+        </div>
+      </div>
+    </div>
+    <label class="form-label mt-3">
+      <span class="d-inline-block me-3">Pasatiempo</span>
+      <button type="button"
+              class="btn btn-outline-success d-inline-block rounded-circle"
+              (click)="agregarPasatiempo()">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </label>
+    <ul class="list-group list-group-flush" formArrayName="pasatiempos">
+      <li *ngFor="let control of pasatiempos.controls;let i = index"
+          class="list-group-item d-flex justify-content-between px-0">
+        <input type="text"
+               class="form-control me-3 border-0"
+               placeholder="Nuevo elemento"
+               [formControlName]="i">
+        <button type="button"
+                class="btn btn-outline-danger d-inline-block rounded-circle"
+                (click)="borrarPasatiempo(i)">
+          <i class="bi bi-trash fs-5"></i>
+        </button>
+      </li>
+    </ul>
     <div class="row">
       <div class="col-12">
         <button type="submit" class="btn btn-primary bg-primary bg-gradient text-white mt-4 w-100">Guardar</button>
